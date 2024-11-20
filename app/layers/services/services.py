@@ -4,13 +4,28 @@ from ..persistence import repositories
 from ..utilities import translator
 from django.contrib.auth import get_user
 
+from ..transport import transport
+
 def getAllImages(input=None):
     # obtiene un listado de datos "crudos" desde la API, usando a transport.py.
     json_collection = []
 
     # recorre cada dato crudo de la colección anterior, lo convierte en una Card y lo agrega a images.
     images = []
+    
+    try: 
+        json_collection = transport.data_api("/character")
 
+        for character in json_collection.get("results", []):
+            if input is None or input.lower() in character["name"].lower():
+                images.append({
+                    "name": character["name"],
+                    "image": character["image"],
+                    "status": character["status"]
+                })
+    except Exception as e:
+        print(f"error al obtener datos de la api: {e}")
+        
     return images
 
 # añadir favoritos (usado desde el template 'home.html')

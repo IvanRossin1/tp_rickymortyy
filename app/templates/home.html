@@ -1,27 +1,9 @@
 {% extends 'header.html' %} {% block content %}
+
 <main>
     <h1 class="text-center">Buscador Rick & Morty</h1>
 
-    <div class="d-flex justify-content-end" style="margin-bottom: 1%; margin-right: 2rem;">
-        <!-- Selector de página -->
-        <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link">⬅️</a>
-                </li>
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">➡️</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    
 
     <div class="d-flex justify-content-center" style="margin-bottom: 1%">
         <!-- Buscador del sitio -->
@@ -48,14 +30,34 @@
                             <h3 class="card-title">{{ img.name }}</h3>
                             <p class="card-text">
                                 <strong>
-                                            {% if true == 'Alive' %} 🟢 {{ img.status }} 
-                                            {% elif true == 'Dead' %} 🔴 {{ img.status }} 
+                                            {% if img.status == 'Alive' %} 🟢 {{ img.status }} 
+                                            {% elif img.status == 'Dead' %} 🔴 {{ img.status }} 
                                             {% else %} 🟠 {{ img.status }} 
                                             {% endif %}
                                         </strong>
                             </p>
-                            <p class="card-text"><small class="text-body-secondary">Última ubicación: {{ img.last_location }}</small></p>
-                            <p class="card-text"><small class="text-body-secondary">Episodio inicial: {{ img.first_seen }}</small></p>
+                            {% comment %} <p class="card-text"><small class="text-body-secondary">Última ubicación: {{ img.last_location }}</small></p> {% endcomment %}
+                            {% comment %} <p class="card-text"><small class="text-body-secondary">Episodio inicial: {{ img.first_seen }}</small></p> {% endcomment %}
+                            <p class="card-text">
+                                <small class="text-body-secondary">
+                                    Última ubicación: 
+                                    {% if img.last_location %}
+                                        {{ img.last_location }}
+                                    {% else %}
+                                        No disponible
+                                    {% endif %}
+                                </small>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-body-secondary">
+                                    Episodio inicial: 
+                                    {% if img.first_seen %}
+                                        {{ img.first_seen }}
+                                    {% else %}
+                                        No disponible
+                                    {% endif %}
+                                </small>
+                            </p>
                         </div>
                         {% if request.user.is_authenticated %}
                         <div class="card-footer text-center">
@@ -76,6 +78,24 @@
             </div>
         </div>
         {% endfor %} {% endif %}
+    </div>
+
+    <div class="d-flex justify-content-center" style="bottom: 0">
+        <!-- Selector de página -->
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link">⬅️</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">➡️</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </main>
 {% endblock %}
