@@ -21,12 +21,15 @@ def getAllImages(input=None):
                 images.append({
                     "name": character["name"],
                     "image": character["image"],
-                    "status": character["status"]
+                    "status": character["status"],
+                    "first_location": character["first_location"],
+                    "last_location": character["last_location"],
                 })
     except Exception as e:
         print(f"error al obtener datos de la api: {e}")
         
     return images
+    
 
 # añadir favoritos (usado desde el template 'home.html')
 def saveFavourite(request):

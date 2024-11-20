@@ -25,7 +25,6 @@ def home(request):
         print(f"Error al obtener imágenes de la API: {e}")
         images = []
 
-    # 2. Renderizar la plantilla con las imágenes
     return render(request, 'home.html', {
         'images': images,
     })
