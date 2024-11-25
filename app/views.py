@@ -5,29 +5,26 @@ from .layers.services import services
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
+from .layers.services.services import getAllImages
+
 from .layers.transport import transport
+
+from django.core.paginator import Paginator
+
 
 def index_page(request):
     return render(request, 'index.html')
 
 # esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
-# def home(request):
-#     images = []
-#     favourite_list = []
-
-#     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
-
 def home(request):
-    try:
-        images = transport.getAllImages()
-    except Exception as e:
-        print(f"Error al obtener imágenes de la API: {e}")
-        images = []
+    images = [] # lista de imagenes de la api
+    
+    images = transport.getAllImages() # obtiene las imagenes desde transport
+    
+    favourite_list = [] #lista favoeritos
 
-    return render(request, 'home.html', {
-        'images': images,
-    })
+    return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
 
 
 def search(request):

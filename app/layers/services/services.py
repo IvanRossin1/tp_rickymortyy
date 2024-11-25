@@ -13,22 +13,18 @@ def getAllImages(input=None):
     # recorre cada dato crudo de la colección anterior, lo convierte en una Card y lo agrega a images.
     images = []
     
-    try: 
-        json_collection = transport.data_api("/character")
-
-        for character in json_collection.get("results", []):
-            if input is None or input.lower() in character["name"].lower():
-                images.append({
-                    "name": character["name"],
-                    "image": character["image"],
-                    "status": character["status"],
-                    "first_location": character["first_location"],
-                    "last_location": character["last_location"],
-                })
-    except Exception as e:
-        print(f"error al obtener datos de la api: {e}")
-        
+    json_collection = transport.getAllImages(input) #obtiene los datos de la funcion getallimages
+    for character in json_collection: # itera con cada personaje
+        images.append({ # creo un objeto con los datos del personaje
+            "name": character["name"],
+            "image": character["image"],
+            "status": character["status"],
+            "location": character["origin"]["name"],
+            "origin": character["origin"]["name"],
+        })
+    
     return images
+
     
 
 # añadir favoritos (usado desde el template 'home.html')
