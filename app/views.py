@@ -27,15 +27,27 @@ def home(request):
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
 
 
-def search(request):
-    search_msg = request.POST.get('query', '')
+# def home(request, page=1):
+#     images = services.getAllImages()
+    
+#     paginator = Paginator(images, per_page=9)
+    
+#     page_object = paginator.get_page(page)
+#     context = {'page_object': page_object}
+    
+#     return render(request, 'home.html', context)
 
-    # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
-    # y luego renderiza el template (similar a home).
+
+def search(request):
+    search_msg = request.POST.get('query', '') #agarra el texto ingresado. si no hay nada, devuelve una cadena vacia
+
+    # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py, y luego renderiza el template (similar a home).
     if (search_msg != ''):
-        pass
+        images = services.getAllImages(search_msg) # obtiene las imagenes de la api
+        
+        return render(request, 'home.html', {'images': images}) 
     else:
-        return redirect('home')
+        return redirect('home') # si esta vacio redirige al home
 
 
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.

@@ -20,6 +20,16 @@
         </nav>
     </div>
 
+
+    {% comment %} <div style="text-align: center;">
+        {% for page_number in page_object.paginator.page_range %}
+            <a href="{% url 'home' %}?page={{ page_number }}" class="{% if page_number == page_object.number %}current{% endif %}">
+                {{ page_number }}
+            </a>
+        {% endfor %}
+    </div> {% endcomment %}
+
+
     <div class="d-flex justify-content-center" style="margin-bottom: 1%">
         <!-- Buscador del sitio -->
         <form class="d-flex" action="{% url 'buscar' %}" method="POST">
