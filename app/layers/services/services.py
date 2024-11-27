@@ -15,7 +15,7 @@ def getAllImages(input=None):
     
     json_collection = transport.getAllImages(input) #obtiene los datos de la funcion getallimages
     for character in json_collection: # itera con cada personaje
-        images.append({ # creo un objeto con los datos del personaje
+        images.append({ # transformo la lista images en un objeto con los datos del personaje
             "name": character["name"],
             "image": character["image"],
             "status": character["status"],

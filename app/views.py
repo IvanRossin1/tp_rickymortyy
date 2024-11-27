@@ -43,7 +43,7 @@ def search(request):
 
     # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py, y luego renderiza el template (similar a home).
     if (search_msg != ''):
-        images = services.getAllImages(search_msg) # obtiene las imagenes de la api
+        images = services.getAllImages(search_msg) # obtiene las imagenes de la api, a traves del objeto images
         
         return render(request, 'home.html', {'images': images}) 
     else:

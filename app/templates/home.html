@@ -1,6 +1,10 @@
 {% extends 'header.html' %} {% block content %}
 
 <main>
+
+    <!-- spinner de carga de la pagina -->
+    <div id="spinner" class="spinner-border text-primary" role="status" style="position: fixed; top: 50%; left: 50%; display: none;"></div>
+
     <h1 class="text-center">Buscador Rick & Morty</h1>
 
     <div class="d-flex justify-content-center">
@@ -28,6 +32,7 @@
             </a>
         {% endfor %}
     </div> {% endcomment %}
+    
 
 
     <div class="d-flex justify-content-center" style="margin-bottom: 1%">
@@ -44,7 +49,11 @@
         <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
         {% else %} {% for img in images %}
         <div class="col">
-            <div class="card mb-3 ms-5 {% if img.status == 'Alive' %}border-success{% elif img.status == 'Dead' %}border-danger{% else %}border-warning{% endif %}" style="max-width: 540px; border-width: 2px;">
+            <div class="card mb-3 ms-5 
+                {% if img.status == 'Alive' %}border-success
+                {% elif img.status == 'Dead' %}border-danger
+                {% else %}border-warning{% endif %}" 
+                    style="max-width: 540px; border-width: 2px;">
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img src="{{ img.image }}" class="card-img-top" alt="imagen">
@@ -85,4 +94,16 @@
         {% endfor %} {% endif %}
     </div>
 </main>
+
+<script>
+    // muestra el spinner mientras carga
+    document.getElementById('spinner').style.display = 'block';
+  
+    // oculta el spinner luego
+    window.onload = function() {
+      document.getElementById('spinner').style.display = 'none';
+    };
+</script>
+
+
 {% endblock %}
